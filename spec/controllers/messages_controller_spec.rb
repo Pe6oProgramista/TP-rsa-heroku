@@ -10,7 +10,7 @@ RSpec.describe MessagesController  do
 	# end
 	
 	 it "create message" do
-        post :create, params: {id: 1, message: "pe6oprogramista is the best"}
+        post :create, params: {id: 1, message: "pesho"}
         expect(response.body).to be_present
         json = JSON.parse(response.body)['id']
         expect(Message.where(id: json)).to be_present
