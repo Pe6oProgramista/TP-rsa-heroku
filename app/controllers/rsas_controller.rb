@@ -1,7 +1,7 @@
 class RsasController < ApplicationController
 	before_action :set_rsa, only: [:show]
 
-	def new
+	def create
 		rsa = Rsa.new()
 
 	    if (params.has_key?(:n) && params.has_key?(:e) && params.has_key?(:d))
@@ -12,19 +12,15 @@ class RsasController < ApplicationController
 			rsa.e = keys[1]
 			rsa.d = keys[2]
 	    end
-
-	    respond_to do |format|
-	    	if rsa.save
-	        	format.json {render json: {'id' => rsa.id}}
-	      	end
-	    end
+    	
+    	if rsa.save
+        	render json: {id: rsa.id}
+      	end
   	end
 
   	def show
 	    rsa = Rsa.find_by id: params[:id]
-	    respond_to do |format|
-	        format.json {render json: {'n' => rsa.n , 'e' => rsa.e, 'd' => rsa.d}}
-	    end
+	     render json: {n: rsa.n, e: rsa.e, d: rsa.d}
   	end
 
 	private
