@@ -15,6 +15,13 @@ RSpec.describe MessagesController  do
         json = JSON.parse(response.body)['id']
         expect(Message.where(id: json)).to be_present
 	end 
+	
+	it "show message" do
+        post :show, params: {id: 1, id2: 1}
+        expect(response.body).to be_present
+        json = JSON.parse(response.body)['message']
+        expect(json).to eq "76689:28553:21702:11181:83245"
+	end 
 
 	it "should encrypt and decrypt a message" do   
        post :decrypt_message, params: {id: 1, message: "76689:28553:21702:11181:83245"}
